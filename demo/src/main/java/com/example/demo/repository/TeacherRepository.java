@@ -1,7 +1,11 @@
 package com.example.demo.repository;
 
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.demo.entity.Teacher;
+import org.springframework.data.repository.CrudRepository;
 
-public interface TeacherRepository extends JpaRepository {
+public interface TeacherRepository extends CrudRepository<Teacher, Long> {
+
+
+
 }

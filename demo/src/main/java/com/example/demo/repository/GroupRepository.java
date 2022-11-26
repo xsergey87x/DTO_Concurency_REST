@@ -1,6 +1,8 @@
 package com.example.demo.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface GroupRepository extends JpaRepository {
+import com.example.demo.entity.Group;
+import org.springframework.data.repository.CrudRepository;
+
+public interface GroupRepository extends CrudRepository<Group, Long> {
 }
