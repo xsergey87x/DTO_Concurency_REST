@@ -2,6 +2,7 @@ package com.example.demo.web;
 
 import com.example.demo.DTO.entityDto.TeacherDTO;
 import com.example.demo.DTO.serviceDto.Mapper;
+import com.example.demo.entity.Group;
 import com.example.demo.entity.Teacher;
 import com.example.demo.service.TeacherService;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +34,27 @@ private final Mapper mapper;
   {
     return teacherService.updateTeacher(teacher);
   }
+
+  ////////////////////////////////////////////////////////////////////////////
+
+  @GetMapping(value = "/addGroupToTeacher/{groupId}")
+  public Teacher addGroupToTeacher(@PathVariable Long groupId)
+  {
+    return null;
+  }
+
+  @GetMapping(value = "/removeGroupToTeacher/{groupId}")
+  public Teacher removeGroupToTeacher(@PathVariable Long groupId)
+  {
+    return null;
+  }
+
+  @GetMapping(value = "/getAllGroupByTeacher/{teacherId}")
+  public List<Group> getAllGroupByTeacher(@PathVariable Long teacherId)
+  {
+    return null;
+  }
+  ////////////////////////////////////////////////////////////////////////////
 
   @GetMapping(value = "/getAll")
   public List<Teacher> getAllTeacher()  {return teacherService.getAllTeacher();}
