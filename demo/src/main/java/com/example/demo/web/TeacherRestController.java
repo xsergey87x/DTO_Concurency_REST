@@ -9,11 +9,11 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/teacher")
-public class TeacherController {
+public class TeacherRestController {
 
 private final TeacherService teacherService;
 
-    public TeacherController(TeacherService teacherService) {
+    public TeacherRestController(TeacherService teacherService) {
         this.teacherService = teacherService;
     }
 

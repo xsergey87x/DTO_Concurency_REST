@@ -16,6 +16,12 @@ public class Teacher {
     public Teacher() {
     }
 
+    public Teacher(Long id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public Teacher(String firstName, String lastName, String gender, int age) {
         this.firstName = firstName;
         this.lastName = lastName;
