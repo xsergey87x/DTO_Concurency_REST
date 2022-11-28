@@ -37,10 +37,10 @@ private final Mapper mapper;
 
   ////////////////////////////////////////////////////////////////////////////
 
-  @GetMapping(value = "/addGroupToTeacher/{groupId}")
-  public Teacher addGroupToTeacher(@PathVariable Long groupId)
+  @PostMapping(value = "/addGroupToTeacher/{teacherId}")
+  public Teacher addGroupToTeacher(@RequestBody Group group, @PathVariable Long teacherId)
   {
-    return null;
+    return teacherService.addGroupToTeacher(group,teacherId);
   }
 
   @GetMapping(value = "/removeGroupToTeacher/{groupId}")

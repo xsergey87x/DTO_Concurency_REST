@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.Group;
 import com.example.demo.entity.Teacher;
 
 import java.util.List;
@@ -11,5 +12,8 @@ public interface TeacherService {
     Teacher updateTeacher(Teacher teacher);
     Optional getTeacherById(Long Id);
     List<Teacher> getAllTeacher();
+    Teacher addGroupToTeacher(Group group, Long teacherId);
+    Teacher deleteGroupFromTeacher(Long groupId, Long teacherId);
+    List<Group> getAllGroupByTeacher(Long teacherId);
 
 }

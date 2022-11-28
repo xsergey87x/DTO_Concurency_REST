@@ -1,11 +1,11 @@
 package com.example.demo.service.Impl;
 
+import com.example.demo.entity.Group;
 import com.example.demo.entity.Teacher;
+import com.example.demo.repository.GroupRepository;
 import com.example.demo.repository.TeacherRepository;
 import com.example.demo.service.TeacherService;
 import org.springframework.stereotype.Service;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -14,9 +14,11 @@ import java.util.Optional;
 public class TeacherServiceImpl implements TeacherService {
 
     TeacherRepository teacherRepository;
+    GroupRepository groupRepository;
 
-    public TeacherServiceImpl(TeacherRepository teacherRepository) {
+    public TeacherServiceImpl(TeacherRepository teacherRepository, GroupRepository groupRepository) {
         this.teacherRepository = teacherRepository;
+        this.groupRepository = groupRepository;
     }
 
     @Override
@@ -31,6 +33,44 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    public Teacher addGroupToTeacher(Group group, Long teacherId) {
+        Optional<Teacher> teacher = teacherRepository.findById(teacherId);
+           List<Group> groups = new ArrayList<>();
+
+           if (teacher.get().getGroups() != null)
+           {
+               groups.addAll(teacher.get().getGroups());
+           }
+        group.setTeacher(teacher.get());
+        groups.add(group);
+        teacher.get().setGroups(groups);
+        groupRepository.save(group);
+        return teacherRepository.save(teacher.get());
+    }
+
+    @Override
+    public Teacher deleteGroupFromTeacher(Long groupId, Long teacherId) {
+        Optional<Teacher> teacher = teacherRepository.findById(teacherId);
+        Optional<Group> group = groupRepository.findById(groupId);
+        List<Group> groups = new ArrayList<>();
+
+        if (teacher.get().getGroups() != null)
+        {
+            groups.addAll(teacher.get().getGroups());
+            group.get().setTeacher(null);
+            groups.remove(group.get());
+            teacher.get().setGroups(groups);
+        }
+        groupRepository.save(group.get());
+        return teacherRepository.save(teacher.get());
+    }
+
+    @Override
+    public List<Group> getAllGroupByTeacher(Long teacherId) {
+        return teacherRepository.findById(teacherId).get().getGroups();
+    }
+
+    @Override
     public Optional getTeacherById(Long id) {
        return teacherRepository.findById(id);
     }
@@ -39,9 +79,6 @@ public class TeacherServiceImpl implements TeacherService {
     public List<Teacher> getAllTeacher() {
                List<Teacher> teachers = new ArrayList<Teacher>();
         teacherRepository.findAll().forEach(teacher1 -> teachers.add(teacher1));
-
-//        List<Teacher> teachers = new ArrayList<>();
-//        teacherIteration.forEach(teacher -> teachers.add(teacher));
         return teachers;
     }
 }
