@@ -35,26 +35,23 @@ private final Mapper mapper;
     return teacherService.updateTeacher(teacher);
   }
 
-  ////////////////////////////////////////////////////////////////////////////
-
   @PostMapping(value = "/addGroupToTeacher/{teacherId}")
   public Teacher addGroupToTeacher(@RequestBody Group group, @PathVariable Long teacherId)
   {
     return teacherService.addGroupToTeacher(group,teacherId);
   }
 
-  @GetMapping(value = "/removeGroupToTeacher/{groupId}")
-  public Teacher removeGroupToTeacher(@PathVariable Long groupId)
+  @GetMapping(value = "/removeGroupToTeacher/{groupId}/{teacherId}")
+  public Teacher removeGroupFromTeacher(@PathVariable Long groupId, @PathVariable Long teacherId)
   {
-    return null;
+    return teacherService.deleteGroupFromTeacher(groupId,teacherId);
   }
 
   @GetMapping(value = "/getAllGroupByTeacher/{teacherId}")
   public List<Group> getAllGroupByTeacher(@PathVariable Long teacherId)
   {
-    return null;
+    return teacherService.getAllGroupByTeacher(teacherId);
   }
-  ////////////////////////////////////////////////////////////////////////////
 
   @GetMapping(value = "/getAll")
   public List<Teacher> getAllTeacher()  {return teacherService.getAllTeacher();}
