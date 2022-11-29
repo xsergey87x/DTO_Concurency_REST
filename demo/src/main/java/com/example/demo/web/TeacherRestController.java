@@ -65,7 +65,7 @@ private final Mapper mapper;
   public List<TeacherDTO> getAllDtoTeacher()  {return teacherService.getAllTeacher().stream().map(mapper::mapEntityToDto).collect(Collectors.toList());}
 
   @GetMapping(value = "/getById")
-  public Teacher getAllTeacher(@RequestParam("id") @Min(0) Long id)
+  public Optional<Teacher> getAllTeacher(@RequestParam("id") @Min(0) Long id)
   {
     return teacherService.getTeacherById(id);
   }
@@ -73,7 +73,7 @@ private final Mapper mapper;
   @GetMapping(value = "/getDtoById")
   public TeacherDTO getAllDtoTeacher(@RequestParam("id") @Min(0) Long id)
   {
-    return mapper.mapEntityToDto((Teacher)teacherService.getTeacherById(id));
+    return mapper.mapEntityToDto((Teacher)teacherService.getTeacherById(id).get());
   }
 
   @GetMapping(value = "/saveTestTeacher")
