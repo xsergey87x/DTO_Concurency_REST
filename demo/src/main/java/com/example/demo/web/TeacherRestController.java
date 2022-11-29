@@ -7,6 +7,7 @@ import com.example.demo.entity.Teacher;
 import com.example.demo.service.TeacherService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -60,13 +61,13 @@ private final Mapper mapper;
   public List<TeacherDTO> getAllDtoTeacher()  {return teacherService.getAllTeacher().stream().map(mapper::mapEntityToDto).collect(Collectors.toList());}
 
   @GetMapping(value = "/getById")
-  public Optional getAllTeacher(@RequestParam Long id)
+  public Optional getAllTeacher(@RequestParam("id") @Min(0) Long id)
   {
     return teacherService.getTeacherById(id);
   }
 
   @GetMapping(value = "/getDtoById")
-  public TeacherDTO getAllDtoTeacher(@RequestParam Long id)
+  public TeacherDTO getAllDtoTeacher(@RequestParam("id") @Min(0) Long id)
   {
     return mapper.mapEntityToDto((Teacher)teacherService.getTeacherById(id).get());
   }

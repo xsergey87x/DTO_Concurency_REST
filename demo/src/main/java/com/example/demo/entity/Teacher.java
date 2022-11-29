@@ -29,11 +29,11 @@ public class Teacher {
         this.age = age;
     }
 
-    public Teacher(Long id, String firstName, String lastName, String gender, int age, List<Group> groups) {
-        this.id = id;
+    public Teacher(String firstName, String lastName, String gender, String email, int age, List<Group> groups) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
+        this.email = email;
         this.age = age;
         this.groups = groups;
     }
@@ -45,6 +45,7 @@ public class Teacher {
     String firstName;
     String lastName;
     String gender;
+    String email;
     int age;
 
     @OneToMany(mappedBy = "teacher")
