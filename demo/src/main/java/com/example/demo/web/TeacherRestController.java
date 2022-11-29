@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,13 +30,13 @@ private final Mapper mapper;
   }
 
   @PostMapping(value = "/saveTeacher")
-  public ResponseEntity<Teacher> addTeacher(@Validated @RequestBody TeacherFullModelDTO teacherFullModelDTO)
+  public ResponseEntity<Teacher> addTeacher(@Valid @RequestBody TeacherFullModelDTO teacherFullModelDTO)
   {
       return ResponseEntity.status(HttpStatus.CREATED).body(teacherService.createTeacher(mapper.mapFullDtoToEntity(teacherFullModelDTO)));
   }
 
   @PostMapping(value = "/updateTeacher")
-  public Teacher updateTeacher(@RequestBody Teacher teacher)
+  public Teacher updateTeacher(@Valid @RequestBody Teacher teacher)
   {
     return teacherService.updateTeacher(teacher);
   }

@@ -3,10 +3,7 @@ package com.example.demo.DTO.entityDto;
 import com.example.demo.entity.Group;
 import lombok.Data;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +22,11 @@ public class TeacherFullModelDTO {
     private Long id;
 
     @NotBlank
+    @Size(min = 2, message = "teacher first name should have at least 2 characters")
     String firstName;
 
     @NotBlank
+    @Size(min = 2, message = "teacher last name should have at least 2 characters")
     String lastName;
 
     @NotBlank
