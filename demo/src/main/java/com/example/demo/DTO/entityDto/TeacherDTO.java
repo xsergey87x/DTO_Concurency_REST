@@ -1,4 +1,5 @@
 package com.example.demo.DTO.entityDto;
+
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
