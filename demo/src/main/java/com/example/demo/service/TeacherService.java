@@ -10,7 +10,7 @@ public interface TeacherService {
 
     Teacher createTeacher(Teacher teacher);
     Teacher updateTeacher(Teacher teacher);
-    Optional getTeacherById(Long Id);
+    Optional<Teacher> getTeacherById(Long Id);
     List<Teacher> getAllTeacher();
     Teacher addGroupToTeacher(Group group, Long teacherId);
     Teacher deleteGroupFromTeacher(Long groupId, Long teacherId);

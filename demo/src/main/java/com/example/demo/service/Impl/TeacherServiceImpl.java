@@ -2,9 +2,11 @@ package com.example.demo.service.Impl;
 
 import com.example.demo.entity.Group;
 import com.example.demo.entity.Teacher;
+import com.example.demo.exception.CustomException;
 import com.example.demo.repository.GroupRepository;
 import com.example.demo.repository.TeacherRepository;
 import com.example.demo.service.TeacherService;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +34,13 @@ public class TeacherServiceImpl implements TeacherService {
         return teacher;
     }
 
+    @SneakyThrows
     @Override
     public Teacher addGroupToTeacher(Group group, Long teacherId) {
         Optional<Teacher> teacher = teacherRepository.findById(teacherId);
-           List<Group> groups = new ArrayList<>();
+        if (teacher.isEmpty()) {throw new CustomException("Teacher with id " + teacherId + " not found"); }
 
+           List<Group> groups = new ArrayList<>();
            if (teacher.get().getGroups() != null)
            {
                groups.addAll(teacher.get().getGroups());
@@ -71,7 +75,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Optional getTeacherById(Long id) {
+    public Optional<Teacher> getTeacherById(Long id) {
        return teacherRepository.findById(id);
     }
 

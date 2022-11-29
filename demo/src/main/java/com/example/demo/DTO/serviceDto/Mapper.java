@@ -1,6 +1,7 @@
 package com.example.demo.DTO.serviceDto;
 
 import com.example.demo.DTO.entityDto.TeacherDTO;
+import com.example.demo.DTO.entityDto.TeacherFullModelDTO;
 import com.example.demo.entity.Teacher;
 import com.example.demo.repository.TeacherRepository;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,19 @@ public class Mapper {
            teacherDTO.setLastName(teacher.getLastName());
             }
             return teacherDTO;
+    }
+
+    public Teacher mapFullDtoToEntity (TeacherFullModelDTO teacherFullModelDTO)
+    {
+        Teacher teacher = new Teacher();
+        teacher.setId(teacherFullModelDTO.getId());
+        teacher.setFirstName(teacherFullModelDTO.getFirstName());
+        teacher.setLastName(teacherFullModelDTO.getLastName());
+        teacher.setGender(teacherFullModelDTO.getGender());
+        teacher.setAge(teacherFullModelDTO.getAge());
+        teacher.setEmail(teacherFullModelDTO.getEmail());
+        teacher.setGroups(teacherFullModelDTO.getGroups());
+        return teacher;
     }
 
     public Teacher mapDtoToEntity(TeacherDTO teacherDTO)

@@ -1,10 +1,14 @@
 package com.example.demo.web;
 
 import com.example.demo.DTO.entityDto.TeacherDTO;
+import com.example.demo.DTO.entityDto.TeacherFullModelDTO;
 import com.example.demo.DTO.serviceDto.Mapper;
 import com.example.demo.entity.Group;
 import com.example.demo.entity.Teacher;
 import com.example.demo.service.TeacherService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Min;
@@ -25,9 +29,9 @@ private final Mapper mapper;
   }
 
   @PostMapping(value = "/saveTeacher")
-  public Teacher addTeacher(@RequestBody Teacher teacher)
+  public ResponseEntity<Teacher> addTeacher(@Validated @RequestBody TeacherFullModelDTO teacherFullModelDTO)
   {
-      return teacherService.createTeacher(teacher);
+      return ResponseEntity.status(HttpStatus.CREATED).body(teacherService.createTeacher(mapper.mapFullDtoToEntity(teacherFullModelDTO)));
   }
 
   @PostMapping(value = "/updateTeacher")
@@ -61,7 +65,7 @@ private final Mapper mapper;
   public List<TeacherDTO> getAllDtoTeacher()  {return teacherService.getAllTeacher().stream().map(mapper::mapEntityToDto).collect(Collectors.toList());}
 
   @GetMapping(value = "/getById")
-  public Optional getAllTeacher(@RequestParam("id") @Min(0) Long id)
+  public Teacher getAllTeacher(@RequestParam("id") @Min(0) Long id)
   {
     return teacherService.getTeacherById(id);
   }
@@ -69,12 +73,12 @@ private final Mapper mapper;
   @GetMapping(value = "/getDtoById")
   public TeacherDTO getAllDtoTeacher(@RequestParam("id") @Min(0) Long id)
   {
-    return mapper.mapEntityToDto((Teacher)teacherService.getTeacherById(id).get());
+    return mapper.mapEntityToDto((Teacher)teacherService.getTeacherById(id));
   }
 
-  @PostMapping(value = "/saveTestTeacher")
+  @GetMapping(value = "/saveTestTeacher")
   public Teacher createTestTeacher()
   {
-    return teacherService.createTeacher(new Teacher("Jordan","Peterson","male",40));
+    return teacherService.createTeacher(new Teacher("Sem","Smith","male",35));
   }
 }
