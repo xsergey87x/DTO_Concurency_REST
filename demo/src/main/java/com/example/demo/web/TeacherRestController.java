@@ -5,7 +5,6 @@ import com.example.demo.DTO.entityDto.TeacherFullModelDTO;
 import com.example.demo.DTO.serviceDto.Mapper;
 import com.example.demo.entity.Group;
 import com.example.demo.entity.Teacher;
-import com.example.demo.exception.CustomException;
 import com.example.demo.service.TeacherService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,20 +65,18 @@ private final Mapper mapper;
   public List<TeacherDTO> getAllDtoTeacher()  {return teacherService.getAllTeacher().stream().map(mapper::mapEntityToDto).collect(Collectors.toList());}
 
   @GetMapping(value = "/getById")
-  public ResponseEntity getTeacherById(@RequestParam("id") @Min(0) Long id)
+  public Teacher getTeacherById(@RequestParam("id") @Min(0) Long id)
   {
-    Optional<Teacher> teacher = teacherService.getTeacherById(id);
-    if (teacher.isEmpty())
-    {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Teacher with Id " + id + " not found");
-    }
-    return new ResponseEntity(teacher, HttpStatus.OK);
+    Teacher teacher = teacherService.getTeacherById(id);
+    return teacher;
+  //  if (teacher.isEmpty()) {return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Teacher with Id " + id + " not found"); }
+  ///  return new ResponseEntity(teacher, HttpStatus.OK);
   }
 
   @GetMapping(value = "/getDtoById")
   public TeacherDTO getAllDtoTeacher(@RequestParam("id") @Min(0) Long id)
   {
-    return mapper.mapEntityToDto((Teacher)teacherService.getTeacherById(id).get());
+    return mapper.mapEntityToDto(teacherService.getTeacherById(id));
   }
 
   @GetMapping(value = "/saveTestTeacher")

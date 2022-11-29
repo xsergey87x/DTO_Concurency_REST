@@ -2,7 +2,7 @@ package com.example.demo.service.Impl;
 
 import com.example.demo.entity.Group;
 import com.example.demo.entity.Teacher;
-import com.example.demo.exception.CustomException;
+import com.example.demo.exception.NoSuchElementException;
 import com.example.demo.repository.GroupRepository;
 import com.example.demo.repository.TeacherRepository;
 import com.example.demo.service.TeacherService;
@@ -38,7 +38,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Teacher addGroupToTeacher(Group group, Long teacherId) {
         Optional<Teacher> teacher = teacherRepository.findById(teacherId);
-        if (teacher.isEmpty()) {throw new CustomException("Teacher with id " + teacherId + " not found"); }
+        if (teacher.isEmpty()) {throw new NoSuchElementException("Teacher with id " + teacherId + " not found"); }
 
            List<Group> groups = new ArrayList<>();
            if (teacher.get().getGroups() != null)
@@ -75,8 +75,8 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Optional<Teacher> getTeacherById(Long id) {
-       return teacherRepository.findById(id);
+    public Teacher getTeacherById(Long id) {
+       return teacherRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No such teacher with specified id"));
     }
 
     @Override
