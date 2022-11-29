@@ -5,6 +5,7 @@ import com.example.demo.DTO.entityDto.TeacherFullModelDTO;
 import com.example.demo.DTO.serviceDto.Mapper;
 import com.example.demo.entity.Group;
 import com.example.demo.entity.Teacher;
+import com.example.demo.exception.RecordNotFoundException;
 import com.example.demo.service.TeacherService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Min;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -67,10 +67,8 @@ private final Mapper mapper;
   @GetMapping(value = "/getById")
   public Teacher getTeacherById(@RequestParam("id") @Min(0) Long id)
   {
-    Teacher teacher = teacherService.getTeacherById(id);
-    return teacher;
-  //  if (teacher.isEmpty()) {return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Teacher with Id " + id + " not found"); }
-  ///  return new ResponseEntity(teacher, HttpStatus.OK);
+   // return teacherService.getTeacherById(id).orElseThrow(() -> new RecordNotFoundException("Employee id '" + id + "' does no exist"));
+    return teacherService.getTeacherById(id);
   }
 
   @GetMapping(value = "/getDtoById")

@@ -4,7 +4,6 @@ import com.example.demo.entity.Group;
 import com.example.demo.entity.Teacher;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface TeacherService {
 
